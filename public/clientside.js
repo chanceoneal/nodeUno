@@ -13,11 +13,11 @@ $(function () {
         inputValidator: function (value) {
             return new Promise(function (resolve, reject) {
                 if (value) {
-                    resolve()
+                    resolve();
                 } else {    
-                    reject('You need to write something!')
+                    reject('You need to write something!');
                 }
-            })
+            });
         }
     }).then(function (name) {
         if (!name) {
@@ -28,7 +28,7 @@ $(function () {
     }, function(dismiss) {
         username = names[Math.floor(Math.random() * names.length)];
         socket.emit('new user', username);
-    })
+    });
     
     $('#messageButton').click(function () {
             socket.emit('chat message', $('#m').val());
@@ -98,11 +98,12 @@ $(function () {
         var tempImage = $(tempImageString);
         $(tempCard).append(tempImage);
         tempCard.click(function(e) {
+			var tempLi;
             // Handles the user clicking on the img
             if (e.target.tagName == 'IMG') {
-                var tempLi = $(e.target).parent()[0];
+                tempLi = $(e.target).parent()[0];
             } else {
-                var tempLi = e.target;
+                tempLi = e.target;
             }
             var card = JSON.parse(tempLi.innerText);
             // Prompts the user to pick a color on wild card.
@@ -119,11 +120,11 @@ $(function () {
                     inputValidator: function (result) {
                         return new Promise(function (resolve, reject) {
                             if (result) {
-                                resolve()
+                                resolve();
                             } else {
-                                reject('You need to select something!')
+                                reject('You need to select something!');
                             }
-                        })
+                        });
                     }              
                 }).then(function (result) {
                     card.color = result;
@@ -240,23 +241,24 @@ $(function () {
      * @param {Object} card 
      */
     function getURL(card) {
+		var cardNum;
         if (isNaN(card.value)) {
             if (card.value == 'reverse') {
-                var cardNum = 10;
+                cardNum = 10;
             } else if (card.value == 'skip') {
-                var cardNum = 11;
+                cardNum = 11;
             } else if (card.value == 'draw two') {
-                var cardNum = 12;
+                cardNum = 12;
             } else if (card.value == 'wild') {
-                var cardNum = 13;
+                cardNum = 13;
             } else if (card.value == 'draw four') {
-                var cardNum = 14;
+                cardNum = 14;
             } else {
                 console.log("Error with getURL method");
-                var cardNum = 0;
+                cardNum = 0;
             }
         } else {
-            var cardNum = card.value;
+            cardNum = card.value;
         }
 
         var color = getColor(card);
